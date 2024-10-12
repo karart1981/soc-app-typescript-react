@@ -31,10 +31,26 @@ export const handleUpload = async (form: FormData): Promise<IResponse> => {
   return response.data;
 };
 
+export const handleUploadCover = async (form: FormData): Promise<IResponse> => {
+  const response = await Axios.patch("/cover/upload", form);
+  return response.data;
+};
+
 export const handlePostUpload = async (form: FormData): Promise<IResponse> => {
   const response = await Axios.post("/posts", form);
   return response.data;
 };
+
+export const handleChangeLogin = async(changes:ChangeLogin):Promise<IResponse> => {
+  const response = await Axios.patch("update/login",changes)
+  return response.data
+}
+
+export const handleChangePassword = async(changes:ChangePassword):Promise<IResponse> => {
+
+  const response = await Axios.patch("update/password",changes)
+  return response.data
+}
 
 export const getAllPosts = async (): Promise<IResponse> => {
   const response = await Axios.get("/posts");
@@ -48,22 +64,6 @@ export const deletePost = async (id: number): Promise<IResponse> => {
 
 export const handlePrivacy = async (): Promise<IResponse> => {
   const response = await Axios.patch("/account/set");
-  return response.data;
-};
-
-export const handlePasswordChange = async (payload: {
-  old: string;
-  newpwd: string;
-}): Promise<IResponse> => {
-  const response = await Axios.patch("/update/password", payload);
-  return response.data;
-};
-
-export const handleLoginChange = async (payload: {
-  password: string;
-  login: string;
-}): Promise<IResponse> => {
-  const response = await Axios.patch("/update/login", payload);
   return response.data;
 };
 
@@ -113,14 +113,8 @@ export const handleGetPostById = async(id:number):Promise<IResponse> => {
   return response.data
 }
 
-export const handleChangeLogin = async(changes:ChangeLogin):Promise<IResponse> => {
-  const response = await Axios.patch("update/login",changes)
-  return response.data
-}
 
-export const handleChangePassword = async(changes:ChangePassword):Promise<IResponse> => {
 
-  const response = await Axios.patch("update/password",changes)
-  return response.data
-}
+
+
 

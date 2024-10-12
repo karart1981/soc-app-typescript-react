@@ -11,19 +11,35 @@ import {
 import { useOutletContext } from "react-router-dom";
 import { IContext } from "../../../helpers/types";
 import { useRef } from "react";
-import { handleUpload } from "../../../helpers/api";
+import { handleUpload, handleUploadCover } from "../../../helpers/api";
 import { BASE, DEF } from "../../../helpers/default";
 
 export function Profile() {
   const { account, setAccount } = useOutletContext<IContext>();
   const photo = useRef<HTMLInputElement | null>(null);
-  const choosePhoto = () => {
+  const cover = useRef<HTMLInputElement | null>(null);
+
+  const handleChoose = () => {
     const file = photo.current?.files?.[0];
     if (file) {
       const form = new FormData();
       form.append("picture", file);
-      handleUpload(form).then((response) => {
+      handleUpload(form)
+      .then((response) => {
+        console.log(response)
         setAccount({ ...account, picture: response.payload as string });
+      });
+    }
+  };
+
+  const chooseCover = () => {
+    const file = cover.current?.files?.[0];
+    console.log(file)
+    if (file) {
+      const form = new FormData();
+      form.append("cover", file);
+      handleUploadCover(form).then((response) => {
+        setAccount({ ...account, cover: response.payload as string });
       });
     }
   };
@@ -36,13 +52,32 @@ export function Profile() {
             <MDBCard>
               <div
                 className="rounded-top text-white d-flex flex-row"
-                style={{ backgroundColor: "#000", height: "200px" }}
+                style={{
+                  backgroundImage: `url('${
+                    account.cover ? BASE + account.cover : DEF
+                  }')`,
+                  height: "200px",
+                  cursor: "pointer",
+                }}
+                onClick={() => cover.current?.click()}
               >
+                <input
+                  style={{ display: "none" }}
+                  type="file"
+                  ref={cover}
+                  onChange={chooseCover}
+                />
                 <div
                   className="ms-4 mt-5 d-flex flex-column"
                   style={{ width: "150px" }}
+                  onClick={() => photo.current?.click()}
                 >
-                  <input style={{display:'none'}} type="file" ref={photo} onChange={choosePhoto} />
+                  <input
+                    style={{ display: "none" }}
+                    type="file"
+                    ref={photo}
+                    onChange={handleChoose}
+                  />
                   <MDBCardImage
                     onClick={() => photo.current?.click()}
                     src={account.picture ? BASE + account.picture : DEF}
@@ -56,7 +91,7 @@ export function Profile() {
                   <MDBTypography tag="h5">
                     {account.name} {account.surname}
                   </MDBTypography>
-                  <MDBCardText>Yerevan</MDBCardText>
+                  <MDBCardText>web developer</MDBCardText>
                 </div>
               </div>
               <div
@@ -65,7 +100,7 @@ export function Profile() {
               >
                 <div className="d-flex justify-content-end text-center py-1">
                   <div>
-                    <MDBCardText className="mb-1 h5">{account.picture?.length}</MDBCardText>
+                    <MDBCardText className="mb-1 h5">0</MDBCardText>
                     <MDBCardText className="small text-muted mb-0">
                       Photos
                     </MDBCardText>

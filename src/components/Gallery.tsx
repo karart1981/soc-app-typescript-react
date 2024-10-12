@@ -30,6 +30,7 @@ export function Gallery({ posts, onUpdate }: Props) {
             <img src={BASE + post.picture} alt={post.title} />
             <div className="cover-post"></div>
             <img
+              style={{cursor:"pointer"}}
               onClick={() => handleReaction(post.id)}
               src={
                 !post.isLiked

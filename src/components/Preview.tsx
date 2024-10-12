@@ -57,7 +57,7 @@ export function Preview({ open, onClose, post }: IProps) {
     
      if(response && postComments?.id ){
       setPostComment({...postComments,
-                      comments:[...postComments?.comments,response.payload as IComment]})
+                      comments:[...postComments.comments,response.payload as IComment]})
     }
   }
    

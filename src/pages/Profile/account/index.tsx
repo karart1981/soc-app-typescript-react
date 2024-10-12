@@ -120,11 +120,6 @@ export const Account = () => {
                             <h3 className="display-5">
                                 {user.name} {user.surname}
                             </h3>
-                              <i className="fa fa-facebook"></i>
-                              <i className="fa fa-google"></i>
-                              <i className="fa fa-youtube-play"></i>
-                              <i className="fa fa-dribbble"></i>
-                              <i className="fa fa-linkedin"></i>
                         </div>
                         <div className="p-3 bg-black text-white">
                             <img
