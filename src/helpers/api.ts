@@ -102,14 +102,13 @@ export const handlePostReaction = async (id: number): Promise<IResponse> => {
   return response.data;
 };
 
-
-export const handleAddComment = async (text:string,id:number):Promise<IResponse> => {
-  const response = await Axios.post("/posts/comment/" + id, {text})
+export const handleGetPostById = async(id:number):Promise<IResponse> => {
+  const response = await Axios.get("/posts/" + id)
   return response.data
 }
 
-export const handleGetPostById = async(id:number):Promise<IResponse> => {
-  const response = await Axios.get("/posts/" + id)
+export const handleAddComment = async (text:string,id:number):Promise<IResponse> => {
+  const response = await Axios.post("/posts/comment/" + id, {text})
   return response.data
 }
 

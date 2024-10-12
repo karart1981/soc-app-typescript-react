@@ -33,8 +33,6 @@ export function Preview({ open, onClose, post }: IProps) {
  
  const {register, handleSubmit,reset} = useForm<IComment>()
 
-
-
  useEffect(() => {
   handleGetPostById(post.id)
   .then(resonse => {
@@ -44,20 +42,17 @@ export function Preview({ open, onClose, post }: IProps) {
   })
  },[post])
 
-
-
  const handleAdd = (data:IComment) => {
   
   const {content} = data
   
- 
   handleAddComment(content, post.id)
   .then(response => {
     if(response.payload){
     
      if(response && postComments?.id ){
       setPostComment({...postComments,
-                      comments:[...postComments.comments,response.payload as IComment]})
+        comments:[...postComments.comments,response.payload as IComment]})
     }
   }
    
@@ -93,7 +88,7 @@ export function Preview({ open, onClose, post }: IProps) {
             <Typography variant="subtitle1">
               <div style={{ display: "flex", alignItems: "center" }}>
                 <strong style={{ marginRight: "8px" }}>
-                  string{post.likes.length} likes
+                  {post.likes.length} likes
                 </strong>
               </div>
               <div style={{ display: "flex", alignItems: "center" }}>
